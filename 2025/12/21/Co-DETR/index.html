@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Co-DETR：DETR 与协作式混合作业培训论文介绍题目：Co-DETR: DETRs with Collaborative Hybrid Assignments Training 会议：ICCV’2023 论文：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2211.12860 代码：https:&#x2F;&#x2F;github.com&#x2F;Sense-X&#x2F;Co-DETR | Co-DETR in MMD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/12/21/Co-DETR/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Co-DETR：DETR 与协作式混合作业培训论文介绍题目：Co-DETR: DETRs with Collaborative Hybrid Assignments Training 会议：ICCV’2023 论文：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2211.12860 代码：https:&#x2F;&#x2F;github.com&#x2F;Sense-X&#x2F;Co-DETR | Co-DETR in MMD">
+<meta property="og:locale">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/d6c3a4d3b5be491c9a285c97c66c7868.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/18aaa84ea44a4745b5bb2ae91b369eed.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/71adcb24dc42442a93e0c9f1dccadeae.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/15eaf32bdc5f4deabfb8729a1a451866.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/7ebc2c2672c1431da193e79553748ce2.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/6c666979c1798cb6a932b7e401a38197.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/149327881bee3d939ecbb5785a664fd0.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/915ea4cb3bc0d219959b2339c713b5ec.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/995c3412dd681f98e45b589aa4a794e1.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/12bea690b3c29d7dc0d7c9c55d6d07b9.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/img_convert/bef07e23477a68100c0ef99ca6e8a46d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/b8f79fc896d44203a572b03a06b1b9e4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/01bb0e1d7bf5440da035e782887789ee.png">
+<meta property="article:published_time" content="2025-12-21T13:38:28.642Z">
+<meta property="article:modified_time" content="2025-12-21T13:50:25.657Z">
+<meta property="article:author" content="VizBye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/direct/d6c3a4d3b5be491c9a285c97c66c7868.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Hexo </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">VizBye </div>
+      <div class="dot"></div>
+      <div class="subtitle">This is the subtitle </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-Co-DETR" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        Untitled
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-12-21T13:38:28.642Z" itemprop="datePublished">2025-12-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            4.7k words 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="Co-DETR：DETR-与协作式混合作业培训"><a href="#Co-DETR：DETR-与协作式混合作业培训" class="headerlink" title="Co-DETR：DETR 与协作式混合作业培训"></a>Co-DETR：DETR 与协作式混合作业培训</h1><h2 id="论文介绍"><a href="#论文介绍" class="headerlink" title="论文介绍"></a>论文介绍</h2><p>题目：Co-DETR: DETRs with Collaborative Hybrid Assignments Training</p>
+<p>会议：ICCV’2023</p>
+<p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2211.12860">https://arxiv.org/pdf/2211.12860</a></p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/Sen">https://github.com/Sen</a><br>se-X&#x2F;Co-DETR | <a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmdetection/tree/main/projects/CO-DETR">Co-DETR in MMDET</a></p>
+<p>年份：2023</p>
+<p><img src="https://i-blog.csdnimg.cn/direct/d6c3a4d3b5be491c9a285c97c66c7868.png" alt="请添加图片描述"></p>
+<h2 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h2><p>Co-DETR针对DETR模型训练中监督不足、效率低下等问题，提出以下方案：<br>（在推理阶段，训练时用到的辅助头会被舍弃，不会给原始检测器引入额外的参数和计算成本）</p>
+<ul>
+<li><p><strong><font color=CornflowerBlue>协同混合分配训练方案：</font></strong></p>
+<ul>
+<li><strong>创新点：</strong> 引入多种辅助头（如自适应训练样本选择（Adaptive Training Sample Selection，ATSS）、Faster R-CNN），采用<strong>一对多标签分配方式</strong>对变压器编码器输出进行监督训练，使编码器能学习到更具判别力的特征。</li>
+<li><strong>解决的问题：</strong> 一对一集匹配策略导致的正样本查询过少，使编码器输出监督稀疏，特征学习能力受限。此方案通过丰富监督信号，解决了因监督不足导致的编码器特征学习低效问题，<strong>提升了模型对目标和背景的区分能力</strong>，使特征表示更具判别性。</li>
+</ul>
+</li>
+<li><p><strong><font color=CornflowerBlue>定制正样本查询生成：</font></strong></p>
+<ul>
+<li><strong>创新点：</strong> 根据辅助头的标签分配，<strong>从辅助头中提取正样本坐标生成额外定制正样本查询</strong>，并将其作为独立组送入解码器，增加正样本查询数量，改善解码器的注意力学习。</li>
+<li><strong>解决的问题：</strong> 一对一集匹配中解码器正样本查询过少，导致交叉注意力学习低效。定制正样本查询为解码器提供了更多有效的训练样本，<strong>提高了解码器训练效率</strong>，使解码器能更好地聚焦于目标区域，增强对目标信息的编码能力，进而提升模型整体性能。</li>
+</ul>
+</li>
+</ul>
+<center>
+<img src="https://i-blog.csdnimg.cn/direct/18aaa84ea44a4745b5bb2ae91b369eed.png"  width="30%" />
+</center>
+
+<h3 id="创新点补充说明："><a href="#创新点补充说明：" class="headerlink" title="创新点补充说明："></a>创新点补充说明：</h3><ul>
+<li><p>DETR 一对一集匹配策略<br>当前的DETR检测器中，为了实现端到端的检测，使用的标签分配策略是<strong>二分匹配</strong>，使得一个ground-truth只能分配到一个正样本。在这种情况下，只有非常少部分的稀疏的query作为正样本，接收到回归的监督。这种稀疏的监督信号具体会对检测器学习能力的哪些方面造成影响目前是未知的。此外，也没有相关的量化指标可以来衡量这种影响究竟有多大。</p>
+</li>
+<li><p>DETR 一对一集匹配策略的影响<br><img src="https://i-blog.csdnimg.cn/direct/71adcb24dc42442a93e0c9f1dccadeae.png" alt="在这里插入图片描述"></p>
+<p>  <strong>观察：</strong></p>
+<ul>
+<li><strong>Deformable-DETR</strong>特征的可视化无法看出其与原图中物体的任何联系，并在特征图的边缘还会出现一些奇怪的高激活。</li>
+<li>在传统的检测器（如Faster-RCNN、<strong>ATSS</strong>）中，一个ground-truth会根据位置关系分配到多个anchor（为了方便阐述，本文将anchor、proposal、point等先验统称为anchor）作为正样本。</li>
+</ul>
+<p>  <strong>猜想：</strong></p>
+<ul>
+<li>考虑到anchor在特征图上密集排列，<strong>一个点可能对应多个不同大小和长宽比的anchor</strong>，以及不同大小的物体会匹配到不同尺度的anchor。</li>
+<li>那么这种一对多的分配方式就能够提供dense且尺度敏感的监督信息，为特征图上的更多区域提供位置监督，就能让检测器的特征学习得更好。</li>
+</ul>
+<p>  <strong>结论：</strong>      </p>
+<ul>
+<li><strong>二分匹配</strong>和<strong>一对多匹配</strong>的差异使得DETR模型中的encoder特征表达能力减弱了。</li>
+</ul>
+</li>
+</ul>
+<center>
+<img src="https://i-blog.csdnimg.cn/direct/15eaf32bdc5f4deabfb8729a1a451866.jpeg"  width="50%" />
+</center>
+
+<ul>
+<li>IoF-IoB曲线衡量<em>特征图与注意辨别力</em></li>
+</ul>
+<center>
+<img src="https://i-blog.csdnimg.cn/direct/7ebc2c2672c1431da193e79553748ce2.png"  width="80%" />
+</center>
+
+<ol>
+<li>计算出每个尺度特征的L2 norm，进行归一化后再在尺度上进行平均。</li>
+</ol>
+<center>
+<img src="https://i-blog.csdnimg.cn/img_convert/6c666979c1798cb6a932b7e401a38197.png"  width="40%"  />
+</center>
+
+<ol start="2">
+<li>得到discriminability score后，计算出其对于前景和背景的响应程度，使用IoF-IoB曲线进行了定量分析，IoF和IoB的计算方式类似，如下公式:</li>
+</ol>
+<center>
+<img src="https://i-blog.csdnimg.cn/img_convert/149327881bee3d939ecbb5785a664fd0.png"  width="60%"  />
+</center>
+
+<p>简单地说，就是把目标框内部的像素点都视为前景，框外的为背景，然后就可以得到前景和背景相应的掩码。根据这个掩码和discriminability score就可以进行IoF和IoB的计算。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><img src="https://i-blog.csdnimg.cn/img_convert/915ea4cb3bc0d219959b2339c713b5ec.png"  style="zoom: 100%;" />  
+
+<ul>
+<li><p>协作式混合作业训练</p>
+</li>
+<li><p>自定义的正查询生成</p>
+</li>
+</ul>
+<h3 id="1-协作式混合作业训练"><a href="#1-协作式混合作业训练" class="headerlink" title="1. 协作式混合作业训练"></a>1. 协作式混合作业训练</h3><h5 id="主要步骤："><a href="#主要步骤：" class="headerlink" title="主要步骤："></a>主要步骤：</h5><ul>
+<li><p>通过<strong>多尺度适配器</strong>将编码器的潜在特征 ${F}$ 转换为特征金字塔${F_{1}, \cdots, F_{J}}$，其中 J 表示特征映射，下采样步幅 $2^{2+J}$（下采样方式：双线性插值 和 $3×3$ 卷积，步幅为 2。对于多尺度编码器，只对多尺度编码器特征 F 中最粗的特征进行下采样，以构建特征金字塔）。</p>
+</li>
+<li><p><strong>通俗说</strong>：对于使用单尺度特征的DETR，这个adapter的结构就类似于simple feature pyramid。而对于多尺度特征的DETR，这个结构就是恒等映射。</p>
+</li>
+<li><p>定义 $K$ 个协作头和相应的标签分配方式 $A_{k}$，将${F_{1}, \cdots, F_{J}}$输入第 i 个辅助头，获得预测 $\hat{P}<em>{i}$。在第 i 个头，$A</em>{i}$ 用于计算 $P_{i}$ 中正负样本的监督目标。</p>
+</li>
+<li><p><strong>公式化过程：</strong>$P_{i}^{\{p o s\}}, B_{i}^{\{p o s\}}, P_{i}^{\{n e g\}}=\mathcal{A}_{i}\left(\hat{P}_{i}, G\right), (1)$，
+其中${pos}$和${neg}$表示由$A_{i}$确定的$(j)$的正坐标或负坐标对集。j 表示${F_{1},\cdots,F_{J}}$中的特征索引。$B_{i}^{{pos}}$是空间正坐标集。$P_{i}^{{pos }}$ 和 $P_{i}^{{neg }}$ 是对应坐标中的监督目标，包括类别和回归偏移量。
+*表 1 中描述了有关每个变量的详细信息*
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d42e244e617145e7aed5733a696b65fd.png)</p>
+</li>
+<li><p>损失函数可以定义为：$\mathcal{L}_{i}^{enc }=\mathcal{L}_{i}\left(\hat{P}_{i}^{\{pos \}}, P_{i}^{\{pos \}}\right)+\mathcal{L}_{i}\left(\hat{P}_{i}^{\{neg \}}, P_{i}^{\{neg \}}\right), (2)$
+对于负样本，回归损失将被丢弃。K 辅助头优化的训练目标公式化为：$\mathcal{L}^{enc }=\sum_{i=1}^{K} \mathcal{L}_{i}^{enc }, (3)$</p>
+</li>
+</ul>
+<h3 id="2-自定义的正查询生成"><a href="#2-自定义的正查询生成" class="headerlink" title="2. 自定义的正查询生成"></a>2. 自定义的正查询生成</h3><p>用于提高Transformer解码器中的交叉注意力学习效率。</p>
+<ol>
+<li>发现传统检测器中的anchor是密集排列的，且能够提供dense且尺度敏感的监督信息。</li>
+<li>尝试将传统检测器中的anchor作为query来为attention的学习提供足够的监督。上一步，辅助的检测头已经分配好了各自的正样本anchor及其匹配的ground-truth。</li>
+<li>直接继承辅助检测头的标签分配结果，将这些正样本anchor转化为正样本query送到decoder中，在loss计算时无需二分匹配，直接使用之前的分配结果。</li>
+<li>与其他引入辅助query的方法相比，这些工作会不可避免地引入大量的负样本query，而我们只在decoder引入了正样本，因此带来的额外训练代价也较小。</li>
+</ol>
+<h5 id="主要步骤：-1"><a href="#主要步骤：-1" class="headerlink" title="主要步骤："></a>主要步骤：</h5><ul>
+<li><p>根据每个辅助头中的标签分配$A_{i}$生成足够的自定义正查询。<br>  即，给定第$i$个辅助头中的正坐标集$B_{i}^{\{pos\}}\in\mathbb{R}^{M_{i}\times4}$，其中$M_{i}$是正样本的数量。生成额外的自定义正查询$Q_{i}\in\mathbb{R}^{M_{i}\times C}$：</p>
+  $Q_{i}=Linear(PE(B_{i}^{\{pos\}}))+Linear(E(\{\mathcal{F}_{*}\},\{\text{pos}\}))$
+<p>  其中$PE(\cdot)$表示位置编码，是根据索引对（$o$，$F_{j}$中的正坐标或负坐标）从$E(\cdot)$中选择相应的特征。</p>
+</li>
+<li><p>因此，在训练期间，有 $K+1$ 组查询有助于单个一对一匹配分支和 K 分支。辅助一对多标签分配分支与原始主分支中的 L 解码器图层共享相同的参数。辅助分支中的所有查询都被视为正查询，因此匹配过程被丢弃。</p>
+</li>
+<li><p>在第 i 个辅助分支中的损失可以表述为：$\mathcal{L}_{i, l}^{dec }=\tilde{\mathcal{L}}\left(\tilde{P}_{i, l}, P_{i}^{\{pos \}}\right)$。（5）<br>$\tilde{P}_{i, t}$指的是第 i 个辅助分支中第 l 个解码器层的输出预测。</p>
+</li>
+<li><p>最后，Co-DETR 的训练目标为：$\mathcal{L}^{global }=\sum_{l=1}^{L}\left(\tilde{\mathcal{L}}_{l}^{dec }+\lambda_{1} \sum_{i=1}^{K} \mathcal{L}_{i, l}^{dec }+\lambda_{2} \mathcal{L}^{enc }\right)$，（6）<br>其中$\tilde{L}<em>{l}^{dec }$代表原始一对一集合匹配分支[1]中的损失，$\lambda</em>{1}$和$\lambda_{2}$是平衡损失的系数。</p>
+</li>
+</ul>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a><strong>结果</strong></h1><img src="https://i-blog.csdnimg.cn/img_convert/995c3412dd681f98e45b589aa4a794e1.png"  style="zoom: 100%;" />
+
+<ul>
+<li>在多个单尺度和多尺度DETR模型上进行了实验，Co-DETR均能带来较大提升，尤其是SOTA模型DINO-5scale能从49.4涨到51.2，差不多是2个点的增幅。</li>
+<li>此外也在更大的backbone上实验，例如Swin-L，结果显示也能够带来1.7个点的提升。</li>
+</ul>
+<img src="https://i-blog.csdnimg.cn/img_convert/12bea690b3c29d7dc0d7c9c55d6d07b9.png"  style="zoom: 100%;" />
+
+<p>将Co-DETR应用到DINO上时，使用了<strong>R50和Swin-L作为骨干网络</strong>。在相同模型规模的对比下，都能够取得最佳的性能表现。</p>
+<ul>
+<li>在大模型的巨大参数加持下，许多方法之间的差异都会被直接抹平。</li>
+<li>因此，在大模型上对所提出的Co-DETR有效性和scale up能力进行验证。<ul>
+<li>具体：<ol>
+<li>使用304M参数的ViT-L作为骨干网络，先在Objects365数据集上进行预训练，再在下游进行微调。</li>
+<li>在COCO数据集进行微调后，Co-DETR在大模型的加持下进一步突破目标检测性能上限，成为第一个到达66.0AP的检测器。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>此外，在长尾分布的数据集LVIS上进行了微调，训练过程中只使用检测框进行监督。Co-DETR分别在LVIS val和minival上取得了67.9AP和71.9AP的成绩，<strong>分别比之前的SOTA方法高+2.7AP和+6.1AP</strong>，取得了非常明显的性能领先。</p>
+<center>
+<img src="https://i-blog.csdnimg.cn/img_convert/bef07e23477a68100c0ef99ca6e8a46d.png"  width="80%" />
+</center>
+
+<p>本研究也在消融实验方面对提出的方法进行了研究，例如选择辅助头的标准、多个不同标签分配策略的辅助头带来的冲突等等。</p>
+<center>
+<img src="https://i-blog.csdnimg.cn/direct/b8f79fc896d44203a572b03a06b1b9e4.png"  width="80%" />
+</center>
+
+<ul>
+<li>观察表明，随着辅助头数量的增加，模型性能呈现先上升后下降的趋势。</li>
+<li>本研究对这一现象进行了定量分析，指出辅助头之间的冲突是导致性能下降的主要原因，并提出了衡量冲突程度的指标。</li>
+<li>基于该指标，计算并分析了不同类型辅助头所引发冲突的程度，并进一步提出了最优辅助头选取策略。</li>
+</ul>
+<p>注：anchor-based和anchor-free的性能差异主要来源于正负样本的定义，<br>    ATSS( Adaptive Training Sample Selection)方法，基于GT的相关统计特征自动选择正负样本，能够消除anchor-based和anchor-free算法间的性能差异。</p>
+<center>
+<img src="https://i-blog.csdnimg.cn/direct/01bb0e1d7bf5440da035e782887789ee.png"  width="50%" />
+</center>
+
+<ol>
+<li>对于每个GT box (g)，首先在每个特征层找到中心点最近的(k)个候选anchor boxes(非预测结果)，</li>
+<li>计算候选box与GT间的IoU (D_{g})，</li>
+<li>计算IoU的均值(m_{g})和标准差(v_{g})，</li>
+<li>得到IoU阈值(t_{g}&#x3D;m_{g}+v_{g})，</li>
+<li>最后选择阈值大于(t_{g})的box作为最后的输出。</li>
+<li>如果anchor box对应多个GT，则选择IoU最大的GT</li>
+</ol>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://www.cvmart.net/community/detail/7953">ICCV 2023｜混合训练策略突破目标检测大模型上限，创下COCO、LVIS新SOTA</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/athrunsunny/article/details/134565362">Co-DETR:DETRs与协同混合分配训练论文学习笔记</a></p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2025/12/21/hello-world/"
+      title="Hello World"
+     >
+
+    <p class="title-text">
+      
+        Hello World
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 VizBye<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
